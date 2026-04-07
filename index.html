@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Selamat Ulang Tahun ke-25, Annisa Hanif ❤️</title>
+  <meta name="description" content="Perjalanan ajaib untuk Annisa Hanif."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- Custom Music -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg"/>
+  </audio>
+
+  <button id="music-toggle" class="music-toggle" aria-label="Toggle music">♫</button>
+
+  <!-- GATE -->
+  <div id="gate" class="gate">
+    <canvas id="gate-canvas" class="full-canvas"></canvas>
+    <div class="gate-content">
+      <div class="gate-ornament"></div>
+      <p class="gate-sub">Sebuah perjalanan ajaib untukmu...</p>
+      <h1 class="gate-title">✨ Masuk ke Dunia Fantasi ✨</h1>
+      <button id="enter-btn" class="gate-btn">Mulai Perjalanan</button>
+      <p class="gate-note">🎵 Pastikan volume aktif untuk pengalaman terbaik</p>
+      <div class="gate-ornament"></div>
+    </div>
+  </div>
+
+  <!-- SCENES -->
+  <div id="scenes-wrapper" class="scenes-wrapper">
+    <div class="scene" id="scene-opening">
+      <canvas class="full-canvas" id="canvas-stars"></canvas>
+      <div class="scene-body"><div class="text-box" id="text-opening"></div>
+        <div class="interact-box hidden" id="interact-opening">
+          <p class="interact-label" id="label-opening"></p>
+          <input type="text" class="interact-input" id="input-name" placeholder="Ketik namamu di sini..." maxlength="30"/>
+          <button class="interact-btn" id="btn-name">✨ Mulai Petualangan ✨</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="scene" id="scene-kingdom">
+      <div class="scene-bg bg-kingdom"></div>
+      <div class="particles-layer" id="sparkles-kingdom"></div>
+      <div class="scene-body"><div class="text-box" id="text-kingdom"></div></div>
+    </div>
+
+    <div class="scene" id="scene-forest">
+      <div class="scene-bg bg-forest"></div>
+      <div class="particles-layer" id="fireflies-forest"></div>
+      <div class="fog-layer fog-1"></div><div class="fog-layer fog-2"></div>
+      <div class="scene-body"><div class="text-box" id="text-forest"></div>
+        <div class="interact-box hidden" id="interact-forest">
+          <p class="interact-label">Pilih sebuah bunga untuk Annisa...</p>
+          <div class="flower-choices" id="flower-choices">
+            <button class="flower-btn" data-idx="0"><span class="flower-emoji">🌹</span><span class="flower-name">Mawar Merah</span></button>
+            <button class="flower-btn" data-idx="1"><span class="flower-emoji">🌸</span><span class="flower-name">Sakura</span></button>
+            <button class="flower-btn" data-idx="2"><span class="flower-emoji">🌻</span><span class="flower-name">Bunga Matahari</span></button>
+          </div>
+          <p class="gombalan-reveal hidden" id="gombalan-text"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="scene" id="scene-ocean">
+      <canvas class="full-canvas" id="canvas-ocean"></canvas>
+      <div class="particles-layer" id="ocean-lights"></div>
+      <div class="scene-body"><div class="text-box" id="text-ocean"></div></div>
+    </div>
+
+    <div class="scene" id="scene-sky">
+      <div class="scene-bg bg-sky"></div>
+      <div class="particles-layer" id="clouds-sky"></div>
+      <div class="scene-body"><div class="text-box" id="text-sky"></div></div>
+    </div>
+
+    <div class="scene" id="scene-final">
+      <div class="scene-bg bg-final"></div>
+      <div class="particles-layer" id="hearts-final"></div>
+      <div class="scene-body"><div class="text-box" id="text-final"></div>
+        <div class="interact-box hidden" id="interact-final">
+          <p class="interact-label">Tulis sebuah harapan untuk Annisa:</p>
+          <textarea class="interact-textarea" id="input-wish" placeholder="Tuliskan harapanmu..." maxlength="200"></textarea>
+          <button class="interact-btn" id="btn-wish">💌 Kirim Harapan</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="scene" id="scene-closing">
+      <div class="scene-bg bg-closing"></div>
+      <div class="particles-layer" id="hearts-closing"></div>
+      <div class="scene-body"><div class="text-box" id="text-closing"></div>
+        <div class="closing-actions hidden" id="closing-actions">
+          <button id="replay-btn" class="replay-btn">✨ Putar Ulang ✨</button>
+          <p class="closing-credit">Dibuat dengan ❤️ untukmu</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRANSITION OVERLAY -->
+  <div id="transition-overlay" class="transition-overlay">
+    <canvas id="transition-canvas" class="full-canvas"></canvas>
+    <div class="transition-figure" id="transition-figure"></div>
+    <p class="transition-text" id="transition-text"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

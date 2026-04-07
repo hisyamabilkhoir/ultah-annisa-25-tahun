@@ -1,0 +1,195 @@
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#d4a853;--gold-light:#f0d27a;--gold-glow:rgba(212,168,83,.4);
+  --pink:#e8a0bf;--pink-soft:#f5c6d8;
+  --deep-blue:#0a1628;--ocean-blue:#0c2d48;
+  --sky-blue:#87ceeb;--forest-green:#1a3a2a;--emerald:#50c878;
+  --font-h:'Cormorant Garamond',Georgia,serif;
+  --font-b:'Inter',-apple-system,sans-serif;
+}
+html{overflow:hidden}
+body{font-family:var(--font-b);background:#000;color:#fff;overflow:hidden;line-height:1.6;-webkit-font-smoothing:antialiased;height:100vh;width:100vw}
+
+/* === FULL CANVAS === */
+.full-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+
+/* === MUSIC TOGGLE === */
+.music-toggle{position:fixed;top:1.2rem;right:1.2rem;z-index:10000;width:46px;height:46px;border-radius:50%;border:2px solid rgba(255,255,255,.15);background:rgba(0,0,0,.45);backdrop-filter:blur(8px);color:var(--gold-light);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.3s;opacity:0;pointer-events:none}
+.music-toggle.visible{opacity:1;pointer-events:all}
+.music-toggle:hover{background:rgba(212,168,83,.2);border-color:var(--gold);transform:scale(1.1)}
+.music-toggle.playing{animation:m-pulse 2s ease-in-out infinite}
+@keyframes m-pulse{0%,100%{box-shadow:0 0 8px var(--gold-glow)}50%{box-shadow:0 0 20px var(--gold-glow),0 0 40px rgba(212,168,83,.15)}}
+
+/* === GATE === */
+.gate{position:fixed;inset:0;z-index:10001;background:radial-gradient(ellipse at center,#0d1b2a,#000);display:flex;align-items:center;justify-content:center;transition:opacity 1.2s,visibility 1.2s}
+.gate.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.gate-content{text-align:center;padding:2rem;position:relative;z-index:5}
+.gate-ornament{width:120px;height:2px;margin:1.2rem auto;background:linear-gradient(90deg,transparent,var(--gold),transparent);position:relative}
+.gate-ornament::after{content:'◆';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:var(--gold);font-size:.55rem}
+.gate-sub{font-weight:300;font-size:.9rem;color:rgba(255,255,255,.45);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.8rem;animation:fadeUp 1s .3s both}
+.gate-title{font-family:var(--font-h);font-size:clamp(1.5rem,5vw,2.6rem);font-weight:600;color:var(--gold-light);margin-bottom:1.5rem;text-shadow:0 0 30px var(--gold-glow);animation:fadeUp 1s .6s both}
+.gate-btn{display:inline-flex;align-items:center;gap:.7rem;padding:1rem 2.4rem;border:2px solid var(--gold);border-radius:50px;background:0 0;color:var(--gold-light);font-family:var(--font-h);font-size:1.05rem;font-weight:600;cursor:pointer;transition:.4s;animation:fadeUp 1s .9s both;letter-spacing:.05em}
+.gate-btn:hover{background:var(--gold);color:#0d1b2a;transform:scale(1.05);box-shadow:0 0 30px var(--gold-glow)}
+.gate-note{font-size:.75rem;color:rgba(255,255,255,.3);margin-top:1rem;animation:fadeUp 1s 1.2s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* === SCENES === */
+.scenes-wrapper{position:fixed;inset:0;z-index:1}
+.scene{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .8s;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.scene.active{opacity:1;pointer-events:all;z-index:5}
+.scene-bg{position:absolute;inset:0;z-index:1}
+.scene-body{position:relative;z-index:10;width:100%;max-width:720px;margin:0 auto;padding:3rem 1.5rem;text-align:center}
+
+/* Scene Backgrounds */
+.bg-kingdom{background:linear-gradient(180deg,#1a0f00,#2a1a06 30%,#3d2409 60%,#1a0f00)}
+.bg-forest{background:linear-gradient(180deg,#0d1f15,#0f2918 40%,#163322 70%,#0d1f15)}
+.bg-sky{background:linear-gradient(180deg,#0a1628,#1a3a5c 20%,#4a8ab5 50%,#87ceeb 80%,#c8e6f5)}
+.bg-final{background:radial-gradient(ellipse at 50% 50%,#1a0a1e,#0d0510 50%,#000)}
+.bg-closing{background:radial-gradient(ellipse at 50% 50%,#0d0510,#000)}
+
+/* Particles Layer */
+.particles-layer{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+
+/* Sparkle */
+.sparkle{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--gold-light);box-shadow:0 0 6px var(--gold),0 0 15px var(--gold-glow);animation:sparkle-f linear infinite;opacity:0}
+@keyframes sparkle-f{0%{opacity:0;transform:translateY(0) scale(0)}15%{opacity:1;transform:translateY(-30px) scale(1)}85%{opacity:.8;transform:translateY(-220px) scale(.7)}100%{opacity:0;transform:translateY(-280px) scale(0)}}
+
+/* Firefly */
+.firefly{position:absolute;width:5px;height:5px;border-radius:50%;background:#ffffaa;box-shadow:0 0 8px #ffffaa,0 0 20px rgba(255,255,170,.4);animation:ff-drift linear infinite}
+@keyframes ff-drift{0%{opacity:0;transform:translate(0,0)}10%{opacity:1}50%{opacity:.3}90%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy))}}
+
+/* Fog */
+.fog-layer{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:.3}
+.fog-1{background:linear-gradient(90deg,transparent,rgba(180,210,190,.12) 25%,rgba(180,210,190,.18) 50%,rgba(180,210,190,.12) 75%,transparent);animation:fog-d1 20s ease-in-out infinite}
+.fog-2{background:linear-gradient(90deg,transparent,rgba(160,200,180,.1) 30%,rgba(160,200,180,.15) 60%,transparent);animation:fog-d2 25s ease-in-out infinite;top:40%}
+@keyframes fog-d1{0%,100%{transform:translateX(-5%)}50%{transform:translateX(5%)}}
+@keyframes fog-d2{0%,100%{transform:translateX(5%)}50%{transform:translateX(-5%)}}
+
+/* Ocean light dot */
+.ocean-dot{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(150,210,255,.8);box-shadow:0 0 10px rgba(150,210,255,.5);animation:o-float linear infinite;opacity:0}
+@keyframes o-float{0%{opacity:0;transform:translateY(0) scale(.5)}20%{opacity:1}80%{opacity:.5}100%{opacity:0;transform:translateY(-200px) scale(1.2)}}
+
+/* CSS Cloud */
+.css-cloud{position:absolute;border-radius:50%;background:rgba(255,255,255,.18);filter:blur(15px);animation:cloud-drift linear infinite}
+@keyframes cloud-drift{0%{transform:translateX(0)}100%{transform:translateX(calc(100vw + 200px))}}
+
+/* Floating heart */
+.fl-heart{position:absolute;opacity:0;animation:heart-rise linear infinite}
+@keyframes heart-rise{0%{opacity:0;transform:translateY(0) scale(.5) rotate(0)}15%{opacity:.5}85%{opacity:.3}100%{opacity:0;transform:translateY(-100vh) scale(1) rotate(25deg)}}
+
+/* Light Rays */
+.bg-sky::after{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(170deg,transparent 30%,rgba(255,255,255,.03) 44%,rgba(255,255,255,.06) 46%,transparent 55%),linear-gradient(175deg,transparent 35%,rgba(255,255,255,.02) 47%,rgba(255,255,255,.05) 49%,transparent 58%);animation:ray-p 6s ease-in-out infinite}
+@keyframes ray-p{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* === TYPED LINE === */
+.text-box{min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem}
+.typed-line{font-family:var(--font-h);font-size:clamp(1.1rem,3vw,1.6rem);font-weight:400;font-style:italic;color:rgba(255,255,255,.9);line-height:1.7;opacity:0;animation:fadeIn .3s forwards}
+@keyframes fadeIn{to{opacity:1}}
+.typed-line.title{font-size:clamp(2rem,6vw,3.5rem);font-weight:700;font-style:normal;letter-spacing:.04em;margin-bottom:.3rem}
+.typed-line.gold{color:var(--gold-light);text-shadow:0 0 30px var(--gold-glow)}
+.typed-line.green{color:var(--emerald);text-shadow:0 0 30px rgba(80,200,120,.3)}
+.typed-line.blue{color:#64b5f6;text-shadow:0 0 30px rgba(100,181,246,.4)}
+.typed-line.sky{color:#c8e6f5;text-shadow:0 0 30px rgba(135,206,235,.4)}
+.typed-line.small{font-size:clamp(.85rem,2vw,1.05rem);font-style:normal;color:rgba(255,255,255,.5);line-height:1.9}
+.typed-line.gombalan{font-size:clamp(.95rem,2.5vw,1.2rem);color:var(--pink-soft);text-shadow:0 0 15px rgba(232,160,191,.3);margin-top:.5rem}
+.typed-line.badge-line{font-size:0;margin:0}
+.typed-line.title-final{font-size:clamp(1.2rem,3.5vw,1.8rem);font-style:normal;color:rgba(255,255,255,.8)}
+.typed-line.name{font-size:clamp(1.8rem,6vw,3.2rem);font-weight:700;font-style:normal;background:linear-gradient(135deg,var(--gold-light),var(--pink-soft),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 20px rgba(232,160,191,.3))}
+.typed-line.wish-display{font-size:clamp(1rem,3vw,1.4rem);color:var(--gold-light);text-shadow:0 0 20px var(--gold-glow);margin:.8rem 0}
+.typed-line.quote{font-size:clamp(.95rem,2.5vw,1.2rem);color:rgba(255,255,255,.45);font-style:italic}
+.typed-line.bold-msg{font-weight:600;font-size:clamp(1.05rem,3vw,1.4rem);color:var(--pink-soft);text-shadow:0 0 20px rgba(232,160,191,.3);font-style:normal;margin-top:.5rem}
+
+/* Badge */
+.final-badge{width:100px;height:100px;border-radius:50%;border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;box-shadow:0 0 30px var(--gold-glow),inset 0 0 20px rgba(212,168,83,.1);animation:badge-in .8s ease both}
+.final-badge span{font-family:var(--font-h);font-size:2.5rem;font-weight:700;color:var(--gold-light);text-shadow:0 0 20px var(--gold-glow)}
+@keyframes badge-in{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* Cursor */
+.cursor{display:inline-block;color:rgba(255,255,255,.6);animation:blink .7s step-end infinite;font-style:normal;margin-left:2px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* === INTERACTIONS === */
+.interact-box{margin-top:2rem;opacity:0;transition:opacity .6s;text-align:center}
+.interact-box.show{opacity:1}
+.interact-box.hidden{display:none}
+.interact-box.fade-out{opacity:0}
+.interact-label{font-family:var(--font-h);font-size:clamp(1rem,3vw,1.3rem);color:rgba(255,255,255,.7);margin-bottom:1rem}
+.interact-input,.interact-textarea{display:block;width:100%;max-width:380px;margin:0 auto 1rem;padding:.9rem 1.2rem;border:2px solid rgba(212,168,83,.3);border-radius:12px;background:rgba(255,255,255,.05);backdrop-filter:blur(5px);color:#fff;font-family:var(--font-h);font-size:1.1rem;text-align:center;outline:none;transition:.3s}
+.interact-input:focus,.interact-textarea:focus{border-color:var(--gold);box-shadow:0 0 20px var(--gold-glow)}
+.interact-textarea{min-height:80px;resize:none;text-align:left}
+.interact-btn{display:inline-block;padding:.9rem 2.2rem;border:2px solid var(--gold);border-radius:50px;background:0 0;color:var(--gold-light);font-family:var(--font-h);font-size:1rem;font-weight:600;cursor:pointer;transition:.4s;letter-spacing:.04em}
+.interact-btn:hover{background:var(--gold);color:#0d1b2a;box-shadow:0 0 30px var(--gold-glow)}
+
+/* Flower Choices */
+.flower-choices{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem}
+.flower-btn{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding:1rem 1.4rem;border:2px solid rgba(255,255,255,.1);border-radius:16px;background:rgba(255,255,255,.03);color:#fff;cursor:pointer;transition:.4s;font-family:var(--font-h)}
+.flower-btn:hover{border-color:var(--pink);background:rgba(232,160,191,.08);transform:scale(1.08)}
+.flower-btn.selected{border-color:var(--gold);background:rgba(212,168,83,.12);box-shadow:0 0 25px var(--gold-glow);transform:scale(1.1)}
+.flower-btn.dimmed{opacity:.3;pointer-events:none;transform:scale(.9)}
+.flower-emoji{font-size:2.5rem}
+.flower-name{font-size:.85rem;color:rgba(255,255,255,.6)}
+.gombalan-reveal{font-family:var(--font-h);font-size:clamp(.95rem,2.5vw,1.15rem);font-style:italic;color:var(--pink-soft);margin-top:1rem;text-shadow:0 0 15px rgba(232,160,191,.3);opacity:0;transition:opacity .8s}
+.gombalan-reveal.show{opacity:1}
+
+/* Closing */
+.closing-actions{text-align:center;margin-top:1.5rem;opacity:0;transition:opacity .6s}
+.closing-actions.show{opacity:1}
+.replay-btn{display:inline-block;padding:.9rem 2.5rem;border:2px solid var(--pink);border-radius:50px;background:0 0;color:var(--pink-soft);font-family:var(--font-h);font-size:1.05rem;font-weight:600;cursor:pointer;transition:.4s;margin-bottom:1.5rem}
+.replay-btn:hover{background:rgba(232,160,191,.15);box-shadow:0 0 30px rgba(232,160,191,.2);transform:scale(1.05)}
+.closing-credit{font-size:.8rem;color:rgba(255,255,255,.2);letter-spacing:.1em}
+
+/* === TRANSITION OVERLAY === */
+.transition-overlay{position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:0;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .6s}
+.transition-overlay.active{opacity:1;pointer-events:all}
+.transition-overlay.leaving{opacity:0}
+.transition-text{position:relative;z-index:10;font-family:var(--font-h);font-size:clamp(1.1rem,3vw,1.5rem);color:rgba(255,255,255,.8);text-shadow:0 0 20px rgba(255,255,255,.2);animation:fadeIn .8s both;letter-spacing:.03em}
+.transition-figure{position:absolute;z-index:8;font-size:5rem;pointer-events:none}
+
+/* Portal */
+.transition-overlay.portal .full-canvas{background:radial-gradient(circle,rgba(212,168,83,.15),#000 70%)}
+.transition-overlay.portal::before,.transition-overlay.portal::after{content:'';position:absolute;border-radius:50%;border:3px solid var(--gold);animation:portal-ring 2.5s ease-out infinite}
+.transition-overlay.portal::before{width:150px;height:150px;animation-delay:0s;box-shadow:0 0 30px var(--gold-glow),inset 0 0 30px var(--gold-glow)}
+.transition-overlay.portal::after{width:250px;height:250px;animation-delay:.4s;box-shadow:0 0 20px var(--gold-glow)}
+@keyframes portal-ring{0%{transform:scale(.3) rotate(0);opacity:0}30%{opacity:1}100%{transform:scale(2.5) rotate(180deg);opacity:0}}
+
+/* Ride */
+.transition-overlay.ride .full-canvas{background:linear-gradient(180deg,#1a0f00,#2a1a06 50%,#1a0f00)}
+.transition-overlay.ride{animation:ride-shake 3s ease-in-out}
+.transition-overlay.ride .transition-figure{animation:ride-gallop 3s ease-in-out forwards;bottom:35%}
+@keyframes ride-shake{0%{transform:translate(0)}10%{transform:translate(-4px,3px)}20%{transform:translate(3px,-2px)}30%{transform:translate(-3px,3px)}40%{transform:translate(4px,-3px)}50%{transform:translate(-3px,2px)}60%{transform:translate(3px,-3px)}70%{transform:translate(-4px,2px)}80%{transform:translate(3px,-2px)}90%{transform:translate(-2px,3px)}100%{transform:translate(0)}}
+@keyframes ride-gallop{0%{left:-15%;transform:scaleX(-1) translateY(0)}20%{transform:scaleX(-1) translateY(-20px)}40%{transform:scaleX(-1) translateY(0)}60%{left:50%;transform:scaleX(-1) translateY(-20px)}80%{transform:scaleX(-1) translateY(0)}100%{left:110%;transform:scaleX(-1) translateY(-10px)}}
+
+/* Sink */
+.transition-overlay.sink{flex-direction:column}
+.transition-overlay.sink .full-canvas{background:linear-gradient(0deg,#041020,var(--ocean-blue) 50%,rgba(12,45,72,.9));animation:sink-fill 3.5s ease-in-out forwards;transform:translateY(100%)}
+@keyframes sink-fill{0%{transform:translateY(100%)}100%{transform:translateY(0)}}
+.sink-bubble{position:absolute;border-radius:50%;border:1px solid rgba(150,210,255,.3);background:rgba(150,210,255,.08);animation:bubble-up linear forwards}
+@keyframes bubble-up{0%{opacity:0;transform:translateY(0) scale(.5)}20%{opacity:.7}100%{opacity:0;transform:translateY(-100vh) scale(1)}}
+
+/* Fly */
+.transition-overlay.fly .full-canvas{background:linear-gradient(0deg,transparent,rgba(135,206,235,.7) 40%,#c8e6f5);animation:fly-sweep 3s ease-in-out forwards;transform:translateY(100%)}
+@keyframes fly-sweep{0%{transform:translateY(100%)}100%{transform:translateY(0)}}
+.wind-line{position:absolute;width:2px;background:linear-gradient(0deg,transparent,rgba(255,255,255,.3),transparent);animation:wind-up linear forwards}
+@keyframes wind-up{0%{opacity:0;transform:translateY(100vh)}100%{opacity:0;transform:translateY(-100vh)}}
+
+/* Flash */
+.transition-overlay.flash .full-canvas{background:radial-gradient(circle,#fff,rgba(255,255,255,.9) 40%,transparent 70%);animation:flash-bloom 2s ease forwards;opacity:0}
+@keyframes flash-bloom{0%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1)}100%{opacity:1;transform:scale(1.5)}}
+
+/* === RESPONSIVE === */
+@media(max-width:768px){
+  .scene-body{padding:2.5rem 1.2rem}
+  .final-badge{width:80px;height:80px}
+  .final-badge span{font-size:2rem}
+  .flower-choices{gap:.6rem}
+  .flower-btn{padding:.7rem 1rem}
+  .flower-emoji{font-size:2rem}
+}
+@media(max-width:480px){
+  .gate-title{font-size:1.4rem}
+  .gate-btn{padding:.8rem 1.8rem;font-size:.95rem}
+  .music-toggle{width:38px;height:38px;font-size:.9rem}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}

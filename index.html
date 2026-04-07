@@ -35,10 +35,10 @@
   <div id="scenes-wrapper" class="scenes-wrapper">
     <div class="scene" id="scene-opening">
       <canvas class="full-canvas" id="canvas-stars"></canvas>
+      <div class="decor-layer" id="opening-decor"></div>
       <div class="scene-body"><div class="text-box" id="text-opening"></div>
         <div class="interact-box hidden" id="interact-opening">
           <p class="interact-label" id="label-opening"></p>
-          <input type="text" class="interact-input" id="input-name" placeholder="Ketik namamu di sini..." maxlength="30"/>
           <button class="interact-btn" id="btn-name">✨ Mulai Petualangan ✨</button>
         </div>
       </div>
@@ -52,11 +52,12 @@
 
     <div class="scene" id="scene-forest">
       <div class="scene-bg bg-forest"></div>
+      <div class="decor-layer" id="forest-decor"></div>
       <div class="particles-layer" id="fireflies-forest"></div>
       <div class="fog-layer fog-1"></div><div class="fog-layer fog-2"></div>
       <div class="scene-body"><div class="text-box" id="text-forest"></div>
         <div class="interact-box hidden" id="interact-forest">
-          <p class="interact-label">Pilih sebuah bunga untuk Annisa...</p>
+          <p class="interact-label">Pilih bunga yang paling kamu suka...</p>
           <div class="flower-choices" id="flower-choices">
             <button class="flower-btn" data-idx="0"><span class="flower-emoji">🌹</span><span class="flower-name">Mawar Merah</span></button>
             <button class="flower-btn" data-idx="1"><span class="flower-emoji">🌸</span><span class="flower-name">Sakura</span></button>
@@ -69,12 +70,14 @@
 
     <div class="scene" id="scene-ocean">
       <canvas class="full-canvas" id="canvas-ocean"></canvas>
+      <div class="decor-layer" id="ocean-decor"></div>
       <div class="particles-layer" id="ocean-lights"></div>
       <div class="scene-body"><div class="text-box" id="text-ocean"></div></div>
     </div>
 
     <div class="scene" id="scene-sky">
       <div class="scene-bg bg-sky"></div>
+      <div class="decor-layer" id="sky-decor"></div>
       <div class="particles-layer" id="clouds-sky"></div>
       <div class="scene-body"><div class="text-box" id="text-sky"></div></div>
     </div>
@@ -84,7 +87,7 @@
       <div class="particles-layer" id="hearts-final"></div>
       <div class="scene-body"><div class="text-box" id="text-final"></div>
         <div class="interact-box hidden" id="interact-final">
-          <p class="interact-label">Tulis sebuah harapan untuk Annisa:</p>
+          <p class="interact-label">Tuliskan harapanmu:</p>
           <textarea class="interact-textarea" id="input-wish" placeholder="Tuliskan harapanmu..." maxlength="200"></textarea>
           <button class="interact-btn" id="btn-wish">💌 Kirim Harapan</button>
         </div>
@@ -110,6 +113,6 @@
     <p class="transition-text" id="transition-text"></p>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js" charset="utf-8"></script>
 </body>
 </html>
